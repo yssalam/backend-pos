@@ -1,0 +1,12 @@
+.env
+.env.*
+.git
+.github
+.phpunit.result.cache
+auth.json
+node_modules
+public/hot
+storage/app/*
+storage/logs/*
+tests
+vendor

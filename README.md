@@ -64,3 +64,16 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Deploying to Render
+
+This repository includes a Docker configuration and Render Blueprint for a free web service.
+
+1. In Render, create a new **Blueprint** and connect the `yssalam/backend-pos` repository. Render will read `render.yaml` from the repository root.
+2. Set `APP_KEY` to the output of `php artisan key:generate --show`, run locally from this directory.
+3. Set `FRONTEND_URL` to the deployed Vercel origin, for example `https://your-app.vercel.app` (without a trailing slash). Multiple comma-separated origins are supported.
+4. After Render creates the service, set the Vercel environment variable `VITE_API_BASE_URL` to `https://<render-service>.onrender.com/api`, then redeploy the frontend.
+
+The Blueprint enables `DEMO_API=true`; this uses the JSON-backed demo store and does not require a database. Render's free service has ephemeral storage, so demo changes can be lost when the service restarts or is redeployed. Do not use this mode for real POS data. For production data, use `DEMO_API=false` with a separately hosted persistent database and configure its connection variables in Render.
+
+Never commit `.env` or put secrets in `render.yaml`; the Docker build context excludes environment files.
